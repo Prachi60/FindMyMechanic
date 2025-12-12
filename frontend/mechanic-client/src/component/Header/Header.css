@@ -1,0 +1,43 @@
+
+.custom-header {
+
+  background-color: #ffffff;
+}
+
+
+.logo-img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+}
+
+
+.brand-text {
+  font-size: 1.25rem;
+  
+  color: black;
+  text-transform: uppercase;
+
+}
+
+
+.nav-link {
+ 
+  font-weight: 500;
+  margin-left: 10px;
+  transition: 0.3s;
+}
+
+
+
+
+
+@media (max-width: 576px) {
+  .logo-img {
+    width: 45px;
+    height: 45px;
+  }
+  .brand-text {
+    font-size: 15px;
+  }
+}
