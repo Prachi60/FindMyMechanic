@@ -3,6 +3,7 @@ import Header from './component/Header/Header'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Home from "../src/pages/Home/Home"
+import Footer from './component/Footer/Footer'
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
    <Routes>
     <Route path='/'element={<Home/>}/>
    </Routes>
+   <Footer/>
     </>
   )
 }
