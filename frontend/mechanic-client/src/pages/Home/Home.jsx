@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../../component/Header/Header";
+import Footer from "../../component/Footer/Footer";
 import Banner from "../../assets/banner_image.jpeg";
 import Engine from "../../assets/engine.png";
 import Battery from "../../assets/accumulator.png";
@@ -256,6 +257,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

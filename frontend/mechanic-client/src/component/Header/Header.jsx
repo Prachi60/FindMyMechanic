@@ -61,11 +61,49 @@ const Header = () => {
               <a className="nav-link ms-1" href="#">Contact</a>
             </li>
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="btn btn-primary ms-lg-3 px-3" href="#">
                 Login / Signup
               </a>
-            </li>
+            </li> */}
+           <li className="nav-item dropdown">
+  <button
+    className="btn btn-primary dropdown-toggle ms-lg-3 px-3"
+    id="loginDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Login / Signup
+  </button>
+
+  <ul
+    className="dropdown-menu dropdown-menu-end"
+    aria-labelledby="loginDropdown"
+  >
+    <li>
+      <button
+        className="dropdown-item"
+        onClick={() => {
+          window.location.href = "/login?role=customer";
+        }}
+      >
+        👤 Login as Customer
+      </button>
+    </li>
+
+    <li>
+      <button
+        className="dropdown-item"
+        onClick={() => {
+          window.location.href = "/login?role=provider";
+        }}
+      >
+        🔧 Login as Mechanic
+      </button>
+    </li>
+  </ul>
+</li>
+
 
           </ul>
         </div>

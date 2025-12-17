@@ -4,6 +4,8 @@ import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Home from "../src/pages/Home/Home"
 import Footer from './component/Footer/Footer'
+import Login from "../src/pages/Login/Login"
+import Register from "../src/pages/Register/Register"
 
 
 const App = () => {
@@ -12,8 +14,10 @@ const App = () => {
    {/* <Header/> */}
    <Routes>
     <Route path='/'element={<Home/>}/>
+    <Route path='/login' element={<Login/>}/>
+    <Route path='/register' element={<Register/>}/>
    </Routes>
-   <Footer/>
+   {/* <Footer/> */}
     </>
   )
 }
