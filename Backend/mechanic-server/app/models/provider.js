@@ -11,7 +11,13 @@ const providerSchema = new mongoose.Schema({
   serviceType: { type: String, required: true },
   experience: { type: Number, required: true },
   workshopAddress: { type: String },
-  availability: { type: Boolean, default: true }
+  availability: { type: Boolean, default: true },
+  location: {
+    type: { type: String, default: 'Point' },
+    coordinates: { type: [Number], index: '2dsphere' }
+  },
+  specialization: [{ type: String }], // e.g., ['2-wheeler', '4-wheeler']
+  images: [{ type: String }] // Portfolio images
 });
 
 export default mongoose.model("Provider", providerSchema);
