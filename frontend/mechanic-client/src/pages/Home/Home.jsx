@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../component/Header/Header";
 import Footer from "../../component/Footer/Footer";
 import Banner from "../../assets/banner_image.jpeg";
@@ -8,12 +8,64 @@ import FullService from "../../assets/full-service.png";
 import wire from "../../assets/wire.png";
 import tyre from "../../assets/tires.png";
 import water from "../../assets/water-rinse.png";
-import Service  from "../../assets/Services.png";
+import Service from "../../assets/services.png";
 import track from "../../assets/search.png"
 import car from "../../assets/car.png"
 import "./Home.css";
+import { Link } from "react-router-dom";
+import BookingModal from "../../component/BookingModal";
+import LiveStatusTracker from "../../component/LiveStatusTracker";
+import axios from "axios";
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    // Request location on load
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            type: "Point",
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          });
+          console.log("Location access granted");
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          alert("Please enable location services to find mechanics near you.");
+        }
+      );
+    }
+  }, []);
+
+  const handleBookingSubmit = async (bookingData) => {
+    try {
+      const token = localStorage.getItem("token"); // Assuming token is stored here
+      if (!token) {
+        alert("Please login to book a mechanic");
+        return;
+      }
+
+      const payload = {
+        ...bookingData,
+        location: location
+      };
+
+      const res = await axios.post("http://localhost:5000/api/bookings", payload, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      localStorage.setItem("lastBookingId", res.data.booking._id);
+      alert("Booking request sent successfully! A mechanic will accept shortly.");
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Booking failed:", error);
+      alert("Failed to create booking. Please try again.");
+    }
+  };
+
   return (
     <div className="container_fluid">
       <Header />
@@ -38,39 +90,17 @@ const Home = () => {
                 service.
               </p>
 
-              <div className="card p-3 mt-4 shadow-sm">
-                <div className="row g-2">
-                  <div className="col-md-4">
-                    <select className="form-select">
-                      <option>Vehicle Type</option>
-                      <option>Car</option>
-                      <option>Bike</option>
-                    </select>
-                  </div>
-                  <div className="col-md-4">
-                    <select className="form-select">
-                      <option>Select Issue</option>
-                      <option>Engine</option>
-                      <option>Battery</option>
-                    </select>
-                  </div>
-                  <div className="col-md-4">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Location"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <button className="btn btn-primary mt-4 px-4 py-2">
-                Find Mechanic
+              <button
+                className="btn btn-primary mt-4 px-4 py-2"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Book a Mechanic Now
               </button>
             </div>
           </div>
         </div>
       </section>
+
       <div className="container my-5">
         <h4 className="fw-bold mb-4">Popular Services</h4>
 
@@ -200,7 +230,7 @@ const Home = () => {
         <h4 className="fw-bold mb-4">Top Mechanics</h4>
 
         <div className="row text-center g-4">
-          
+
           <div className="col-12 col-md-4">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body d-flex flex-column align-items-center">
@@ -209,7 +239,7 @@ const Home = () => {
                        d-flex align-items-center justify-content-center mb-3"
                   style={{ width: "70px", height: "70px" }}
                 >
-                <img src={car} alt="image not found" style={{width:"60px",height:"60px"}} />
+                  <img src={car} alt="image not found" style={{ width: "60px", height: "60px" }} />
                 </div>
                 <h6 className="fw-semibold">Choose your Vehicle</h6>
                 <p className="text-muted small mb-0">
@@ -219,7 +249,7 @@ const Home = () => {
             </div>
           </div>
 
-       
+
           <div className="col-12 col-md-4">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body d-flex flex-column align-items-center">
@@ -228,7 +258,7 @@ const Home = () => {
                        d-flex align-items-center justify-content-center mb-3"
                   style={{ width: "70px", height: "70px" }}
                 >
-                <img src={Service} alt="image not found" style={{width:"60px",height:"60px"}} />
+                  <img src={Service} alt="image not found" style={{ width: "60px", height: "60px" }} />
                 </div>
                 <h6 className="fw-semibold">Select Issue / Service</h6>
                 <p className="text-muted small mb-0">
@@ -246,7 +276,7 @@ const Home = () => {
                        d-flex align-items-center justify-content-center mb-3"
                   style={{ width: "70px", height: "70px" }}
                 >
-                <img src={track} alt="image not found" style={{width:"60px",height:"60px"}} />
+                  <img src={track} alt="image not found" style={{ width: "60px", height: "60px" }} />
                 </div>
                 <h6 className="fw-semibold">Book & Track Status</h6>
                 <p className="text-muted small mb-0">
@@ -257,7 +287,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleBookingSubmit}
+      />
+      <LiveStatusTracker />
     </div>
   );
 };
