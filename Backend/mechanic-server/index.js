@@ -1,8 +1,9 @@
 import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./app/dbConfig/db.js"
-import authRoutes from "./app/routes/auth.routes.js";
-import bookingRoutes from "./app/routes/booking.routes.js";
+import setupRoutes from "./app/routes/index.js";
+
+// import bookingRoutes from "./app/routes/booking.routes.js";
 // import mediaSetup from "./app/routes/media.js"
 import path from "path";
 import cors from "cors"
