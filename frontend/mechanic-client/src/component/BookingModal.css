@@ -4,24 +4,24 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
 }
 
 .modal-content {
-  background: #1e1e1e;
+  background: #ffffff;
   padding: 2rem;
   border-radius: 15px;
   width: 90%;
   max-width: 500px;
   position: relative;
-  color: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  border: 1px solid #333;
+  color: #333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e0e0e0;
 }
 
 .close-btn {
@@ -30,9 +30,14 @@
   right: 15px;
   background: none;
   border: none;
-  color: #aaa;
+  color: #666;
   font-size: 1.5rem;
   cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #000;
 }
 
 .vehicle-grid {
@@ -43,18 +48,18 @@
 }
 
 .vehicle-card {
-  background: #2a2a2a;
+  background: #f8f9fa;
   padding: 1.5rem;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
-  border: 1px solid #444;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
+  border: 1px solid #dee2e6;
 }
 
 .vehicle-card:hover {
   transform: translateY(-5px);
-  background: #333;
+  background: #e9ecef;
   border-color: #007bff;
 }
 
@@ -62,6 +67,12 @@
   font-size: 2.5rem;
   display: block;
   margin-bottom: 0.5rem;
+}
+
+.vehicle-card p {
+  margin: 0;
+  font-weight: 500;
+  color: #333;
 }
 
 .step-container h2 {
@@ -76,6 +87,7 @@
 
 .quiz-question p {
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .quiz-question label {
@@ -84,21 +96,35 @@
 }
 
 .input-group {
-    margin-top: 1rem;
+  margin-top: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .input-group textarea {
-    width: 100%;
-    height: 80px;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    color: white;
-    padding: 0.5rem;
-    border-radius: 5px;
-    margin-top: 0.5rem;
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  border: 1px solid #ced4da;
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  resize: vertical;
 }
 
-.next-btn, .submit-btn {
+.input-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.next-btn,
+.submit-btn {
   width: 100%;
   padding: 0.8rem;
   background: #007bff;
@@ -111,7 +137,8 @@
   transition: background 0.2s;
 }
 
-.next-btn:hover, .submit-btn:hover {
+.next-btn:hover,
+.submit-btn:hover {
   background: #0056b3;
 }
 
@@ -127,5 +154,5 @@
   height: 60px;
   object-fit: cover;
   border-radius: 5px;
-  border: 1px solid #444;
+  border: 1px solid #dee2e6;
 }
